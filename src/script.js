@@ -1,34 +1,31 @@
-function delay(ms) {
+function delay(data, ms) {
     return new Promise(function (resolve, reject) {
         setTimeout(() => {
-            resolve();
+            resolve(data);
         }, ms);
     })
 }
 
 async function getUserInfo() {
-    await delay(1000);
-    return ({ name: 'Vic', age: 21, id: 1 });
+    return delay({ name: 'Vic', age: 21, id: 1 }, 1000);
 }
 
 async function getUserAvatar(userInfo) {
-    await delay(1000);
     userInfo.avatar = 'https://previews.123rf.com/images/stockgiu/stockgiu1708/stockgiu170802061/83728179-avatar-sketch-of-a-funny-man-s-haed-with-sunglasses-and-hairstyle-design.jpg'
-    return userInfo;
+    return delay(userInfo, 1000);
 }
 
 async function getUserAdditionalInfo(userInfo) {
-    await delay(1000);
     userInfo.interests = ['sport', 'books'];
-    return userInfo;
+    return delay(userInfo, 1000);
 }
 
 async function getResult() {
-    let userInfo1 = await getUserInfo();
-    let userInfo2 = await getUserAvatar(userInfo1);
-    let userInfoResult = await getUserAdditionalInfo(userInfo2);
+    let userInfo = await getUserInfo();
+    let userAvatar = await getUserAvatar(userInfo);
+    let infoResult = await getUserAdditionalInfo(userAvatar);
 
-    console.log(userInfoResult);
+    console.log(infoResult);
 }
 
 getResult();
